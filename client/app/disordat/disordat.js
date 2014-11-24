@@ -5,7 +5,7 @@ angular.module('aeGameApp')
     $stateProvider
       .state('main', {
         url: '/',
-        templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
+        templateUrl: 'app/disordat/view.html',
+        controller: 'DisOrDatCtrl'
       });
   });

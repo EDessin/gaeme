@@ -1,11 +1,11 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('Controller: DisOrDatCtrl', function () {
 
   // load the controller's module
   beforeEach(module('aeGameApp'));
 
-  var MainCtrl,
+  var DisOrDatCtrl,
       scope,
       $httpBackend;
 
@@ -16,7 +16,7 @@ describe('Controller: MainCtrl', function () {
       .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);
 
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    DisOrDatCtrl = $controller('DisOrDatCtrl', {
       $scope: scope
     });
   }));
