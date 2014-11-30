@@ -9,6 +9,8 @@ How to get the ae-game running
 # How do I get set up? #
 ## Prerequisites ##
 * NodeJs
+* grunt (install by executing *npm install -g grunt-cli* in commandline)
+* bower (install by executing *npm install -g bower* in commandline)
 
 ## Installation ##
 * Run *npm install* in command line from project root folder
