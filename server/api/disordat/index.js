@@ -1,14 +1,16 @@
 'use strict';
 
 var express = require('express');
-var controller = require('./disordat.controller');
+var disOrDatController = require('./disordat.controller');
 
 var router = express.Router();
 
-router.get('/question', controller.question);
+router.get('/question', disOrDatController.question);
 
-router.get('/answers', controller.answers);
+router.get('/questions', disOrDatController.questions);
 
-router.post('/answer', controller.answer);
+router.get('/answers', disOrDatController.answers);
+
+router.post('/answer', disOrDatController.answer);
 
 module.exports = router;
