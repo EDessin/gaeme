@@ -55,8 +55,8 @@ var answers = [
       correct_answer_id: 1
     },
     {
-      question_id: 1,
-      correct_answer_id: 1
+      question_id: 2,
+      correct_answer_id: 2
     }
 ];
 
