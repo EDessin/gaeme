@@ -1,31 +1,61 @@
-#banner {
-  border-bottom: none;
-  margin-top: -20px;
-}
+.content {
+  .container {
+    height: 100%;
 
-#banner h1 {
-  font-size: 60px;
-  line-height: 1;
-  letter-spacing: -1px;
-}
+    h1 {
+      font-weight: bold;
 
-.banner-content {
-  position: relative;
-  padding: 30px 15px;
-  color: #F5F5F5;
-  text-align: center;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-  background: black;
+      .logo {
+        width: 100%;
+        max-width: 600px;
+      }
+    }
 
-  .logo {
-    width: 100px;
-  }
+    .lead {
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: -1px;
+      padding: 25px 0px 50px 0px;
 
-  h1 {
-    font-weight: bold;
-  }
+      @media (min-width: 768px) {
+        font-size: 45px;
+      }
 
-  .lead {
-    font-size: 30px;
+      @media (min-width: 992px) {
+        font-size: 60px;
+      }
+
+      @media (min-width: 1200px) {
+        font-size: 60px;
+      }
+    }
+
+    .row {
+      a {
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: none;
+        background: lightgrey;
+        border: none;
+        color: black;
+        padding: 20px 0px;
+
+        &:hover {
+          background: greenyellow;
+        }
+
+        @media (min-width: 768px) {
+          font-size: 25px;
+        }
+
+        @media (min-width: 992px) {
+          font-size: 30px;
+        }
+
+        @media (min-width: 1200px) {
+          font-size: 30px;
+        }
+      }
+    }
   }
 }

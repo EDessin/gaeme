@@ -23,8 +23,7 @@ var questions = [
     {
         question: {
             id: 1,
-            type: 'text',
-            src: 'Kent Glenn iets van Front end engineering?'
+            text: 'Heeft Glenn Dejaeger expertise binnen Front end engineering?'
         },
         answers: [
             {
@@ -40,8 +39,7 @@ var questions = [
     {
         question: {
             id: 2,
-            type: 'text',
-            src: 'Kent Glenn iets van Information Management?'
+            text: 'Heeft Glenn Dejaeger expertise binnen Information Management?'
         },
         answers: [
             {
@@ -53,17 +51,80 @@ var questions = [
                 answer: 'Nee'
             }
         ]
+    },
+    {
+        question: {
+            id: 3,
+            text: "Wat is de naam van deze AE'er?",
+            img: 'http://bit.ly/15Mub4R'
+        },
+        answers: [
+            {
+                id: 1,
+                answer: 'Maarten Aerts'
+            },
+            {
+                id: 2,
+                answer: 'Maarten Allard'
+            }
+        ]
+    },
+    {
+        question: {
+            id: 4,
+            text: "Wat is de naam van deze AE'er?",
+            img: 'http://bit.ly/1tDP5HB'
+        },
+        answers: [
+            {
+                id: 1,
+                answer: 'Maarten Aerts'
+            },
+            {
+                id: 2,
+                answer: 'Maarten Allard'
+            }
+        ]
+    },
+    {
+        question: {
+            id: 5,
+            text: "Hoe heet deze AE'er?",
+            img: 'http://bit.ly/1yuNxoy'
+        },
+        answers: [
+            {
+                id: 1,
+                answer: "Ken D'Hondt"
+            },
+            {
+                id: 2,
+                answer: "Sean D'Hondt"
+            }
+        ]
     }
 ];
 
 var answers = [
     {
-      question_id: 1,
-      correct_answer_id: 1
+        questionId: 1,
+        correctAnswerId: 1
     },
     {
-      question_id: 2,
-      correct_answer_id: 2
+        questionId: 2,
+        correctAnswerId: 2
+    },
+    {
+        questionId: 3,
+        correctAnswerId: 1
+    },
+    {
+        questionId: 4,
+        correctAnswerId: 2
+    },
+    {
+        questionId: 5,
+        correctAnswerId: 1
     }
 ];
 
@@ -93,13 +154,13 @@ exports.answers = function(req, res) {
 
 // Get bad or good answer
 exports.answer = function(req, res) {
-  console.log(JSON.stringify(req.body));
   var questionId = req.body.question_id;
   var answerId = req.body.answer_id;
-  var result;
-  answers.forEach(function(answer) {
-    if (answer.question_id === questionId) {
-      result = answer.correct_answer_id === answerId;
+  var result = false;
+  answers.forEach(function(answer_item) {
+    if (answer_item.questionId === questionId) {
+      console.log(answer_item);
+      result = answer_item.correctAnswerId === answerId;
       return;
     }
   });

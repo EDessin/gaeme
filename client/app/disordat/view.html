@@ -1,19 +1,29 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <ul>
-                <li>
-                    {{q.question.src}}
-                </li>
-                <li ng-repeat="a in q.answers">
-                    {{a.answer}}
-                </li>
-            </ul>
+<header class="content" id="banner">
+    <div class="container">
+        <div class="score">Score: {{getScore()}}</div>
+        <div ng-if="loading" class="loader">
+            <div class="result">
+                <span ng-if="isCorrect" class="correct"><i class="fa fa-check"></i> Juist!</span>
+                <span ng-if="!isCorrect" class="wrong"><i class="fa fa-close"></i> Fout!</span>
+            </div>
+            <i class="fa fa-circle-o-notch fa-spin fa-5x"></i>
+            <div class="loader-text">Volgende vraag wordt geladen</div>
+        </div>
+        <div ng-if="!loading">
+            <div class="image" ng-if="data.question.img"><img src="{{data.question.img}}"></div>
+            <div class="question">{{data.question.text}}</div>
+            <div class="row answers">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" ng-repeat="a in data.answers">
+                    <div ng-click="submitAnswer(data.question.id, a.id)" class="thumbnail answer">
+                        {{a.answer}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</header>
 
 <footer class="footer">
     <div class="container">

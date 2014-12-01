@@ -5,7 +5,6 @@ angular.module('aeGamesApp')
     $stateProvider
       .state('main', {
         url: '/',
-        templateUrl: 'app/home/view.html',
-        controller: 'HomeCtrl'
+        templateUrl: 'app/home/view.html'
       });
   });
