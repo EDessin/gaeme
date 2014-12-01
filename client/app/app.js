@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('aeGameApp', [
+angular.module('aeGamesApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',

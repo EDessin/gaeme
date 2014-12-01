@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('aeGameApp')
+angular.module('aeGamesApp')
   .controller('NavbarCtrl', function ($scope, $location) {
     $scope.menu = [{
       'title': 'Dis or Dat',
-      'link': '/'
+      'link': '/disordat'
     }];
 
     $scope.isCollapsed = true;

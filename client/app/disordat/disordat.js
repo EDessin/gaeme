@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('aeGameApp')
+angular.module('aeGamesApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('main', {
-        url: '/',
+      .state('disordat', {
+        url: '/disordat',
         templateUrl: 'app/disordat/view.html',
         controller: 'DisOrDatCtrl'
       });
