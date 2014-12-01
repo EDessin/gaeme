@@ -3,11 +3,21 @@
 <header class="content" id="banner">
     <div class="container">
         <div class="score">Score: {{getScore()}}</div>
-        <div class="question">{{data.question.src}}</div>
-        <div class="row answers">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" ng-repeat="a in data.answers">
-                <div ng-click="submitAnswer(data.question.id, a.id)" class="thumbnail answer">
-                    {{a.answer}}
+        <div ng-if="loading" class="loader">
+            <div class="result">
+                <span ng-if="isCorrect" class="correct">Juist!</span>
+                <span ng-if="!isCorrect" class="wrong">Fout!</span>
+            </div>
+            <i class="fa fa-circle-o-notch fa-spin fa-5x"></i>
+            <div class="loader-text">Volgende vraag wordt geladen</div>
+        </div>
+        <div ng-if="!loading">
+            <div class="question">{{data.question.src}}</div>
+            <div class="row answers">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" ng-repeat="a in data.answers">
+                    <div ng-click="submitAnswer(data.question.id, a.id)" class="thumbnail answer">
+                        {{a.answer}}
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,28 +1,61 @@
 .content {
-  .logo {
-    width: 100%;
-    max-width: 600px;
-  }
+  .container {
+    height: 100%;
 
-  h1 {
-    font-weight: bold;
-  }
+    h1 {
+      font-weight: bold;
 
-  .lead {
-    font-size: 30px;
-  }
+      .logo {
+        width: 100%;
+        max-width: 600px;
+      }
+    }
 
-  a {
-    font-size: 30px;
-    font-weight: bold;
-    text-decoration: none;
-    background: lightgrey;
-    border: none;
-    color: black;
-    padding: 20px 0px;
+    .lead {
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: -1px;
+      padding: 25px 0px 50px 0px;
 
-    &:hover {
-      background: greenyellow;
+      @media (min-width: 768px) {
+        font-size: 45px;
+      }
+
+      @media (min-width: 992px) {
+        font-size: 60px;
+      }
+
+      @media (min-width: 1200px) {
+        font-size: 60px;
+      }
+    }
+
+    .row {
+      a {
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: none;
+        background: lightgrey;
+        border: none;
+        color: black;
+        padding: 20px 0px;
+
+        &:hover {
+          background: greenyellow;
+        }
+
+        @media (min-width: 768px) {
+          font-size: 25px;
+        }
+
+        @media (min-width: 992px) {
+          font-size: 30px;
+        }
+
+        @media (min-width: 1200px) {
+          font-size: 30px;
+        }
+      }
     }
   }
 }

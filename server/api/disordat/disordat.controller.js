@@ -51,18 +51,18 @@ var questions = [
 
 var answers = [
     {
-      question_id: 1,
-      correct_answer_id: 1
+      questionId: 1,
+      correctAnswerId: 1
     },
     {
-      question_id: 2,
-      correct_answer_id: 2
+      questionId: 2,
+      correctAnswerId: 2
     }
 ];
 
 // Get question
 exports.question = function(req, res) {
-  var index = _.random(questions.length);
+  var index = _.random(questions.length-1);
   //todo map to remove 'correct' from answers => not needed for UI
   res.json(questions[index]);
 };
@@ -75,12 +75,12 @@ exports.answers = function(req, res) {
 // Get bad or good answer
 exports.answer = function(req, res) {
   console.log(JSON.stringify(req.body));
-  var questionId = req.body.question_id;
-  var answerId = req.body.answer_id;
+  var questionId = req.body.questionId;
+  var answerId = req.body.answerId;
   var result;
   answers.forEach(function(answer) {
-    if (answer.question_id === questionId) {
-      result = answer.correct_answer_id === answerId;
+    if (answer.questionId === questionId) {
+      result = answer.correctAnswerId === answerId;
       return;
     }
   });

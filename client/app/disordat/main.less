@@ -2,22 +2,86 @@
   .score {
     text-align: right;
     font-size: 18px;
-  }
-  .question {
-    font-size: 30px;
     padding-bottom: 30px;
   }
+
+  .loader {
+    .result {
+      font-size: 40px;
+      font-weight: bold;
+      padding-bottom: 30px;
+      @media (min-width: 768px) {
+        font-size: 45px;
+      }
+      @media (min-width: 992px) {
+        font-size: 50px;
+      }
+      @media (min-width: 1200px) {
+        font-size: 55px;
+      }
+
+      .correct {
+        color: greenyellow;
+      }
+
+      .wrong {
+        color: red;
+      }
+    }
+
+    .loader-text {
+      font-size: 18px;
+      padding-top: 10px;
+      @media (min-width: 768px) {
+        font-size: 20px;
+      }
+      @media (min-width: 992px) {
+        font-size: 20px;
+      }
+      @media (min-width: 1200px) {
+        font-size: 25px;
+      }
+    }
+  }
+
+  .question {
+    font-size: 20px;
+    padding-bottom: 30px;
+    @media (min-width: 768px) {
+      font-size: 25px;
+    }
+    @media (min-width: 992px) {
+      font-size: 30px;
+    }
+    @media (min-width: 1200px) {
+      font-size: 30px;
+    }
+  }
+
   .answers {
     .answer {
       padding: 10px 0px;
-      font-size: 30px;
+      font-size: 20px;
       font-weight: bold;
       background: orange;
       color: white;
+
       &:hover {
         background: lightgrey;
         color: black;
         cursor: pointer;
+      }
+
+      @media (min-width: 768px) {
+        font-size: 25px;
+      }
+
+      @media (min-width: 992px) {
+        font-size: 30px;
+      }
+
+      @media (min-width: 1200px) {
+        font-size: 30px;
       }
     }
   }

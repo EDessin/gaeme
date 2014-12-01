@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aeGamesApp')
-    .service('gameService', function ($log) {
+    .service('gameService', function () {
         var service = this;
         var score = 0;
 
@@ -9,8 +9,8 @@ angular.module('aeGamesApp')
             return score;
         };
 
-        service.calculateScore = function(correct) {
-            if(correct) {
+        service.calculateScore = function(isCorrect) {
+            if(isCorrect) {
                 score++;
             }
         };
