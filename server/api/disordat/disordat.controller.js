@@ -16,7 +16,7 @@ var questions = [
     {
         question: {
             id: 1,
-            text: 'Kent Glenn iets van Front end engineering?'
+            text: 'Heeft Glenn Dejaeger expertise binnen Front end engineering?'
         },
         answers: [
             {
@@ -32,7 +32,7 @@ var questions = [
     {
         question: {
             id: 2,
-            text: 'Kent Glenn iets van Information Management?'
+            text: 'Heeft Glenn Dejaeger expertise binnen Information Management?'
         },
         answers: [
             {
@@ -44,43 +44,105 @@ var questions = [
                 answer: 'Nee'
             }
         ]
+    },
+    {
+        question: {
+            id: 3,
+            text: "Wat is de naam van deze AE'er?",
+            img: 'http://bit.ly/15Mub4R'
+        },
+        answers: [
+            {
+                id: 1,
+                answer: 'Maarten Aerts'
+            },
+            {
+                id: 2,
+                answer: 'Maarten Allard'
+            }
+        ]
+    },
+    {
+        question: {
+            id: 4,
+            text: "Wat is de naam van deze AE'er?",
+            img: 'http://bit.ly/1tDP5HB'
+        },
+        answers: [
+            {
+                id: 1,
+                answer: 'Maarten Aerts'
+            },
+            {
+                id: 2,
+                answer: 'Maarten Allard'
+            }
+        ]
+    },
+    {
+        question: {
+            id: 5,
+            text: "Hoe heet deze AE'er?",
+            img: 'http://bit.ly/1yuNxoy'
+        },
+        answers: [
+            {
+                id: 1,
+                answer: "Ken D'Hondt"
+            },
+            {
+                id: 2,
+                answer: "Sean D'Hondt"
+            }
+        ]
     }
 ];
 
 var answers = [
     {
-      questionId: 1,
-      correctAnswerId: 1
+        questionId: 1,
+        correctAnswerId: 1
     },
     {
-      questionId: 2,
-      correctAnswerId: 2
+        questionId: 2,
+        correctAnswerId: 2
+    },
+    {
+        questionId: 3,
+        correctAnswerId: 1
+    },
+    {
+        questionId: 4,
+        correctAnswerId: 2
+    },
+    {
+        questionId: 5,
+        correctAnswerId: 1
     }
 ];
 
 // Get question
-exports.question = function(req, res) {
-  var index = _.random(questions.length-1);
-  //todo map to remove 'correct' from answers => not needed for UI
-  res.json(questions[index]);
+exports.question = function (req, res) {
+    var index = _.random(questions.length - 1);
+    res.json(questions[index]);
 };
 
 // Get all answers
-exports.answers = function(req, res) {
-  res.json(answers);
+exports.answers = function (req, res) {
+    res.json(answers);
 };
 
 // Get bad or good answer
-exports.answer = function(req, res) {
-  console.log(JSON.stringify(req.body));
-  var questionId = req.body.questionId;
-  var answerId = req.body.answerId;
-  var result;
-  answers.forEach(function(answer) {
-    if (answer.questionId === questionId) {
-      result = answer.correctAnswerId === answerId;
-      return;
-    }
-  });
-  res.json(result);
+exports.answer = function (req, res) {
+    console.log(JSON.stringify(req.body));
+    var questionId = req.body.questionId;
+    var answerId = req.body.answerId;
+    var result;
+    answers.forEach(function (answer) {
+        if (answer.questionId === questionId) {
+            result = answer.correctAnswerId === answerId;
+            return;
+        }
+    });
+    res.json(result);
 };
