@@ -16,8 +16,7 @@ var questions = [
     {
         question: {
             id: 1,
-            type: 'text',
-            src: 'Kent Glenn iets van Front end engineering?'
+            text: 'Kent Glenn iets van Front end engineering?'
         },
         answers: [
             {
@@ -33,8 +32,7 @@ var questions = [
     {
         question: {
             id: 2,
-            type: 'text',
-            src: 'Kent Glenn iets van Information Management?'
+            text: 'Kent Glenn iets van Information Management?'
         },
         answers: [
             {
