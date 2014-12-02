@@ -154,8 +154,8 @@ exports.answers = function(req, res) {
 
 // Get bad or good answer
 exports.answer = function(req, res) {
-  var questionId = req.body.question_id;
-  var answerId = req.body.answer_id;
+  var questionId = req.body.questionId;
+  var answerId = req.body.answerId;
   var result = false;
   answers.forEach(function(answer_item) {
     if (answer_item.questionId === questionId) {
