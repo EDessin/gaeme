@@ -63,18 +63,6 @@ exports.loadAllAnswers = function() {
     console.log("Loaded all answers");
 };
 
-exports.getImage = function(req, res) {
-    var imageId = req.params.id;
-    res.sendFile("images/"+imageId, {
-        root: __dirname,
-        dotfiles: 'deny',
-        headers: {
-            'x-timestamp': Date.now(),
-            'x-sent': true
-        }
-    });
-};
-
 function convertFromCsvToJson(fileName, callBack) {
     var fileStream = fs.createReadStream("./server/api/disordat/data/"+fileName+".csv");
     //new converter instance

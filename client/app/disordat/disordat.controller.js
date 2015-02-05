@@ -58,13 +58,10 @@ angular.module('aeGamesApp')
 
             resourceService.getResource('/api/disordat/question').then(function (data) {
                 $scope.question = data;
-                if(data.imageId) {
+                if(data.imageUrl) {
                     //TODO get image
-                    resourceService.getResource('/api/disordat/image/'+data.imageId).then(function(data) {
-                        $scope.question.image = data;
+                    resourceService.getResource(data.imageUrl).finally(function(data) {
                         deferred.resolve();
-                    },function() {
-                        deferred.reject();
                     });
                 } else {
                     deferred.resolve();

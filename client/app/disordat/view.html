@@ -20,8 +20,8 @@
                 </div>
             </div>
             <div ng-if="!loadingError">
-                <div class="image" ng-if="question.image">
-                    <img ng-src="{{data.question.image}}">
+                <div class="image" ng-if="question.imageUrl">
+                    <img ng-src="{{question.imageUrl}}">
                 </div>
                 <div class="question">{{question.question}}</div>
                 <div class="row answers">
