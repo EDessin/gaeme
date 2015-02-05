@@ -1,3 +1,42 @@
+.button {
+  padding: 10px 0px;
+  font-size: 20px;
+  font-weight: bold;
+  background: #ff6600;
+  color: white;
+
+  &:hover {
+    background: lighten(#ff6600, 5%);
+    cursor: pointer;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 25px;
+  }
+
+  @media (min-width: 992px) {
+    font-size: 30px;
+  }
+
+  @media (min-width: 1200px) {
+    font-size: 30px;
+  }
+}
+
+.message {
+  font-size: 20px;
+  padding-bottom: 30px;
+  @media (min-width: 768px) {
+    font-size: 25px;
+  }
+  @media (min-width: 992px) {
+    font-size: 30px;
+  }
+  @media (min-width: 1200px) {
+    font-size: 30px;
+  }
+}
+
 .content {
   .score {
     text-align: right;
@@ -51,44 +90,12 @@
   }
 
   .question {
-    font-size: 20px;
-    padding-bottom: 30px;
-    @media (min-width: 768px) {
-      font-size: 25px;
-    }
-    @media (min-width: 992px) {
-      font-size: 30px;
-    }
-    @media (min-width: 1200px) {
-      font-size: 30px;
-    }
+    .message();
   }
 
   .answers {
     .answer {
-      padding: 10px 0px;
-      font-size: 20px;
-      font-weight: bold;
-      background: orange;
-      color: white;
-
-      &:hover {
-        background: lightgrey;
-        color: black;
-        cursor: pointer;
-      }
-
-      @media (min-width: 768px) {
-        font-size: 25px;
-      }
-
-      @media (min-width: 992px) {
-        font-size: 30px;
-      }
-
-      @media (min-width: 1200px) {
-        font-size: 30px;
-      }
+      .button();
     }
   }
 }

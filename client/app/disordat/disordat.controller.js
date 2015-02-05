@@ -1,38 +1,78 @@
 'use strict';
 
 angular.module('aeGamesApp')
-    .controller('DisOrDatCtrl', function ($scope, resourceService, gameService, $timeout) {
-        var loadNextQuestion = function(timeout) {
-            $scope.data = null;
-            $scope.loading = true;
-            $timeout(function () {
-                $scope.getQuestion();
-                $scope.loading = false;
-            }, timeout);
-        };
+    .controller('DisOrDatCtrl', function ($scope, resourceService, gameService, $timeout, $q) {
+        var controller = this;
+        controller.getScore = getScore;
+        controller.submitAnswer = submitAnswer;
+        controller.loadQuestion = loadQuestion;
 
-        $scope.getQuestion = function () {
-            resourceService.getResource('/api/disordat/question').then(function (data) {
-                $scope.data = data;
+        init();
+
+        function init() {
+            $scope.firstQuestionLoaded = false;
+            loadQuestion().then(function() {
+                $scope.firstQuestionLoaded = true;
             });
-        };
+        }
 
-        $scope.submitAnswer = function (questionId, answerId) {
+        function submitAnswer(questionId, answerId) {
             var dataToSubmit = {
                 questionId: questionId,
                 answerId: answerId
             };
             resourceService.postResource('/api/disordat/answer', dataToSubmit).then(function (isCorrect) {
                 $scope.isCorrect = isCorrect;
-                console.log(isCorrect);
                 gameService.calculateScore(isCorrect);
-                loadNextQuestion(1500);
+                loadQuestion();
             });
-        };
+        }
 
-        $scope.getScore = function () {
+        function getScore() {
             return gameService.getScore();
-        };
+        }
 
-        loadNextQuestion(0);
+        function loadQuestion() {
+            var deferred = $q.defer();
+
+            $scope.data = null;
+            $scope.loading = true;
+
+            $timeout(function() {
+                getQuestion().then(function() {
+                    $scope.loading = false;
+                    $scope.loadingError = false;
+                },function() {
+                    $scope.loading = false;
+                    $scope.loadingError = true;
+                }).finally(function() {
+                    deferred.resolve();
+                });
+            }, 1500);
+
+            return deferred.promise;
+        }
+
+        function getQuestion() {
+            var deferred = $q.defer();
+
+            resourceService.getResource('/api/disordat/question').then(function (data) {
+                $scope.question = data;
+                if(data.imageId) {
+                    //TODO get image
+                    resourceService.getResource('/api/disordat/image/'+data.imageId).then(function(data) {
+                        $scope.question.image = data;
+                        deferred.resolve();
+                    },function() {
+                        deferred.reject();
+                    });
+                } else {
+                    deferred.resolve();
+                }
+            }, function() {
+                deferred.reject();
+            });
+
+            return deferred.promise;
+        }
     });

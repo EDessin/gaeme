@@ -1,0 +1,5 @@
+id;categoryId;question;imageId;answers[0].id;answers[0].value;answers[1].id;answers[1].value
+1;1;Heeft Glenn Dejaeger expertise binnen Front end engineering?;;1;Ja;2;Nee
+2;1;Heeft Glenn Dejaeger expertise binnen Information Management?;;1;Ja;2;Nee
+3;2;Wat is de naam van deze AE'er?;Aerts_Maarten.jpg;1;Maarten Aerts;2;Maarten Allard
+4;2;Wat is de naam van deze AE'er?;Devos_tom.jpg;1;Bart Orbie;2;Tom Devos

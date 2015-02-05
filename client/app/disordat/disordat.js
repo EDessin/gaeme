@@ -6,6 +6,7 @@ angular.module('aeGamesApp')
       .state('disordat', {
         url: '/disordat',
         templateUrl: 'app/disordat/view.html',
-        controller: 'DisOrDatCtrl'
+        controller: 'DisOrDatCtrl',
+        controllerAs: 'DisOrDatCtrl'
       });
   });
