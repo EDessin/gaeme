@@ -5,8 +5,7 @@ angular.module('aeGamesApp', [
     'ngResource',
     'ngSanitize',
     'ui.router',
-    'ui.bootstrap',
-    'ngAnimate'
+    'ui.bootstrap'
 ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $urlRouterProvider
