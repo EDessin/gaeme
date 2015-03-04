@@ -1,19 +1,38 @@
 'use strict';
 
 angular.module('aeGamesApp')
-    .controller('DisOrDatCtrl', function ($scope, resourceService, gameService, $timeout, $q) {
+    .controller('DisOrDatCtrl', function ($scope, ResourceService, UserService, $timeout, $q) {
         var controller = this;
         controller.getScore = getScore;
+        controller.isNewGame = isNewGame;
+        controller.startGame = startGame;
+        controller.getUserName = getUserName;
         controller.submitAnswer = submitAnswer;
         controller.loadQuestion = loadQuestion;
 
-        init();
+        var score;
+        var isNewGame;
 
-        function init() {
-            $scope.firstQuestionLoaded = false;
-            loadQuestion().then(function() {
-                $scope.firstQuestionLoaded = true;
+        startGame();
+
+        function startGame() {
+            score = 0;
+            isNewGame = true;
+            loadQuestion().then(function () {
+                isNewGame = false;
             });
+        }
+
+        function getScore() {
+            return score;
+        }
+
+        function isNewGame() {
+            return isNewGame;
+        }
+
+        function getUserName() {
+            return UserService.getUserName();
         }
 
         function submitAnswer(questionId, answerId) {
@@ -21,15 +40,13 @@ angular.module('aeGamesApp')
                 questionId: questionId,
                 answerId: answerId
             };
-            resourceService.postResource('/api/disordat/answer', dataToSubmit).then(function (isCorrect) {
+            ResourceService.postResource('/api/disordat/answer', dataToSubmit).then(function (isCorrect) {
                 $scope.isCorrect = isCorrect;
-                gameService.calculateScore(isCorrect);
+                if (isCorrect) {
+                    score++;
+                }
                 loadQuestion();
             });
-        }
-
-        function getScore() {
-            return gameService.getScore();
         }
 
         function loadQuestion() {
@@ -38,14 +55,14 @@ angular.module('aeGamesApp')
             $scope.data = null;
             $scope.loading = true;
 
-            $timeout(function() {
-                getQuestion().then(function() {
+            $timeout(function () {
+                getQuestion().then(function () {
                     $scope.loading = false;
                     $scope.loadingError = false;
-                },function() {
+                }, function () {
                     $scope.loading = false;
                     $scope.loadingError = true;
-                }).finally(function() {
+                }).finally(function () {
                     deferred.resolve();
                 });
             }, 1500);
@@ -56,17 +73,17 @@ angular.module('aeGamesApp')
         function getQuestion() {
             var deferred = $q.defer();
 
-            resourceService.getResource('/api/disordat/question').then(function (data) {
+            ResourceService.postResource('/api/disordat/question', {user: 'glenn.dejaeger'}).then(function (data) {
                 $scope.question = data;
-                if(data.imageUrl) {
-                    //TODO get image
-                    resourceService.getResource(data.imageUrl).finally(function(data) {
+                if (data.imageUrl) {
+                    ResourceService.getResource(data.imageUrl).finally(function (data) {
+                        //always resolve, cors error will be thrown, it's needed to indicate that image has loaded
                         deferred.resolve();
                     });
                 } else {
                     deferred.resolve();
                 }
-            }, function() {
+            }, function () {
                 deferred.reject();
             });
 

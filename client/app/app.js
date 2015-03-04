@@ -6,10 +6,9 @@ angular.module('aeGamesApp', [
     'ngSanitize',
     'ui.router',
     'ui.bootstrap'
-])
-    .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-        $urlRouterProvider
-            .otherwise('/');
+]).config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+    $urlRouterProvider
+        .otherwise('/');
 
-        $locationProvider.html5Mode(true);
-    });
+    $locationProvider.html5Mode(true);
+});

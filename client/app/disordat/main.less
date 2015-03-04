@@ -1,4 +1,4 @@
-.button {
+.button-mixin() {
   padding: 10px 0px;
   font-size: 20px;
   font-weight: bold;
@@ -23,6 +23,22 @@
   }
 }
 
+.game-info-mixin() {
+  font-size: 21px;
+  padding-bottom: 30px;
+  color: grey;
+  display: inline-block;
+  width: 49%;
+}
+
+.button {
+  .button-mixin();
+}
+
+button {
+  .button-mixin();
+}
+
 .message {
   font-size: 20px;
   padding-bottom: 30px;
@@ -40,9 +56,11 @@
 .content {
   .score {
     text-align: right;
-    font-size: 21px;
-    padding-bottom: 30px;
-    color: grey;
+    .game-info-mixin();
+  }
+  .username {
+    text-align: left;
+    .game-info-mixin();
   }
 
   .loader {
@@ -95,7 +113,7 @@
 
   .answers {
     .answer {
-      .button();
+      .button-mixin();
     }
   }
 }

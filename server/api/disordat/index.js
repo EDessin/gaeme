@@ -5,7 +5,7 @@ var disOrDatController = require('./disordat.controller');
 
 var router = express.Router();
 
-router.get('/question', disOrDatController.getRandomQuestion);
+router.post('/question', disOrDatController.getRandomQuestion);
 router.get('/questions', disOrDatController.getQuestions);
 router.get('/answers', disOrDatController.getAnswers);
 router.post('/answer', disOrDatController.getAnswer);

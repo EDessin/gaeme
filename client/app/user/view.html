@@ -1,0 +1,19 @@
+<header ng-include="'components/navbar/navbar.html'"></header>
+
+<main class="content">
+    <div class="container">
+        <form ng-if="!gameStarted">
+            <p class="lead">Vul een gebruikersnaam in om te kunnen spelen</p>
+
+            <div class="form-group">
+                <label for="username">Gebruikersnaam</label>
+                <input type="text" class="form-control" id="username" placeholder="Voer gebruikersnaam in" ng-model="userName">
+            </div>
+            <div ng-click="UserCtrl.setUserName(userName)" class="thumbnail button">
+                Login
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer ng-include="'components/footer/footer.html'"></footer>

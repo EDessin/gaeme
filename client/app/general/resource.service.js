@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('aeGamesApp')
-    .service('resourceService', function ($http, $q, $log) {
+    .service('ResourceService', function ($http, $q, $log) {
         var service = this;
 
         service.getResource = function (uri) {

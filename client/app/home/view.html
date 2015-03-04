@@ -1,23 +1,29 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
+<header ng-include="'components/navbar/navbar.html'"></header>
 
-<header class="content" id="banner">
+<main class="content">
     <div class="container">
         <h1><img src="assets/images/aegames.png" alt="ae" class="logo"></h1>
 
         <p class="lead">Hoe goed ken jij jouw bedrijf?</p>
 
-        <div class="container row">
+        <div class="row" ng-if="HomeCtrl.getUserName()">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <a href="/disordat" class="thumbnail">
                     Speel Dis or Dat
                 </a>
+                <a href="/user" class="thumbnail login">
+                    Wijzig gebruikersnaam
+                </a>
+            </div>
+        </div>
+        <div class="row" ng-if="!HomeCtrl.getUserName()">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <a href="/user" class="thumbnail login">
+                    Login
+                </a>
             </div>
         </div>
     </div>
-</header>
+</main>
 
-<footer class="footer">
-    <div class="container">
-        <p>Copyright AE nv 2015
-    </div>
-</footer>
+<footer ng-include="'components/footer/footer.html'"></footer>

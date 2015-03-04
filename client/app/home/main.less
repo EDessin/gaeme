@@ -30,6 +30,12 @@
       }
     }
 
+    label {
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
     .row {
       a {
         font-size: 20px;
@@ -39,6 +45,13 @@
         border: none;
         color: white;
         padding: 20px 0px;
+
+        &.login {
+          background: grey;
+          &:hover {
+            background: lighten(grey, 10%);
+          }
+        }
 
         &:hover {
           background: lighten(#ff6600, 5%);
