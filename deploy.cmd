@@ -12,6 +12,9 @@ IF %ERRORLEVEL% NEQ 0 (
   goto error
 )
 
+:: 4.1 We can't install grunt-cli globally - so intall it locally
+call !NPM_CMD! install grunt-cli
+
 :: Setup
 :: -----
 
@@ -94,6 +97,15 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
+
+:: 6. Grunt build
+IF EXIST “%DEPLOYMENT_TARGET%\Gruntfile.js” (
+   pushd “%DEPLOYMENT_TARGET%”
+  call :ExecuteCmd grunt devBuild
+  IF !ERRORLEVEL! NEQ 0 goto error
+  popd
+)
+
 IF EXIST "%DEPLOYMENT_TARGET%\bower.json" (
   pushd %DEPLOYMENT_TARGET%
   call !NPM_CMD! install bower
@@ -109,11 +121,6 @@ echo ************** call node --version
 call !NPM_CMD! install --production
  
 :: 4. Run our grunt task
-call !NPM_CMD! install grunt
-:: 4.1 We can't install grunt-cli globally - so intall it locally
-call !NPM_CMD! install grunt-cli
-call !NPM_CMD! install jit-grunt
-call !NPM_CMD! install time-grunt
 
 :: 4.2 
 ::
