@@ -1,6 +1,4 @@
-﻿@echo off
-
-:: ----------------------
+﻿:: ----------------------
 :: KUDU Deployment Script
 :: ----------------------
 
@@ -115,6 +113,7 @@ call !NPM_CMD! install grunt
 :: 4.1 We can't install grunt-cli globally - so intall it locally
 call !NPM_CMD! install grunt-cli
 call !NPM_CMD! install jit-grunt
+call !NPM_CMD! install time-grunt
 
 :: 4.2 
 ::
