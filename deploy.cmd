@@ -114,6 +114,7 @@ call !NPM_CMD! install --production
 call !NPM_CMD! install grunt
 :: 4.1 We can't install grunt-cli globally - so intall it locally
 call !NPM_CMD! install grunt-cli
+call !NPM_CMD! install jit-grunt
 
 :: 4.2 
 ::
