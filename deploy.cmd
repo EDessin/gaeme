@@ -104,7 +104,7 @@ echo ************** call node --version
 call !NPM_CMD! install --production
  
 :: 4. Run our grunt task
-
+call !NPM_CMD! install grunt
 :: 4.1 We can't install grunt-cli globally - so intall it locally
 call !NPM_CMD! install grunt-cli
 
