@@ -1,6 +1,7 @@
-﻿:: ----------------------
+﻿@echo off
+
+:: ----------------------
 :: KUDU Deployment Script
-:: Version: 0.2.2
 :: ----------------------
 
 :: Prerequisites
@@ -18,7 +19,7 @@ IF %ERRORLEVEL% NEQ 0 (
 
 setlocal enabledelayedexpansion
 
-SET ARTIFACTS=%~dp0%..\artifacts
+SET ARTIFACTS=%~dp0%artifacts
 
 IF NOT DEFINED DEPLOYMENT_SOURCE (
   SET DEPLOYMENT_SOURCE=%~dp0%.
@@ -43,7 +44,7 @@ IF NOT DEFINED KUDU_SYNC_CMD (
   IF !ERRORLEVEL! NEQ 0 goto error
 
   :: Locally just running "kuduSync" would also work
-  SET KUDU_SYNC_CMD=%appdata%\npm\kuduSync.cmd
+  SET KUDU_SYNC_CMD=node "%appdata%\npm\node_modules\kuduSync\bin\kuduSync"
 )
 goto Deployment
 
@@ -61,17 +62,12 @@ IF DEFINED KUDU_SELECT_NODE_VERSION_CMD (
     SET /p NODE_EXE=<"%DEPLOYMENT_TEMP%\__nodeVersion.tmp"
     IF !ERRORLEVEL! NEQ 0 goto error
   )
-  
-  IF EXIST "%DEPLOYMENT_TEMP%\__npmVersion.tmp" (
-    SET /p NPM_JS_PATH=<"%DEPLOYMENT_TEMP%\__npmVersion.tmp"
-    IF !ERRORLEVEL! NEQ 0 goto error
-  )
 
   IF NOT DEFINED NODE_EXE (
     SET NODE_EXE=node
   )
 
-  SET NPM_CMD="!NODE_EXE!" "!NPM_JS_PATH!"
+  SET NPM_CMD="!NODE_EXE!" "%NPM_JS_PATH%"
 ) ELSE (
   SET NPM_CMD=npm
   SET NODE_EXE=node
@@ -83,55 +79,49 @@ goto :EOF
 :: Deployment
 :: ----------
 
-echo Handling node.js grunt deployment.
+:Deployment
+echo Handling node.js deployment.
 
-:: 1. Select node version
-selectNodeVersion
+:: 1. KuduSync
+call %KUDU_SYNC_CMD% -v 50 -f "%DEPLOYMENT_SOURCE%" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd"
+IF !ERRORLEVEL! NEQ 0 goto error
 
-:: 2. Install npm packages
-if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
-  eval $NPM_CMD install
-  exitWithMessageOnError "npm failed"
-fi
+:: 2. Select node version
+call :SelectNodeVersion
 
-:: 3. Install bower packages
-if [ -e "$DEPLOYMENT_SOURCE/bower.json" ]; then
-  eval $NPM_CMD install bower
-  exitWithMessageOnError "installing bower failed"
-  ./node_modules/.bin/bower install
-  exitWithMessageOnError "bower failed"
-fi
+:: 3. Install npm packages
+IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
+  pushd %DEPLOYMENT_TARGET%
+  call !NPM_CMD! install --production
+  IF !ERRORLEVEL! NEQ 0 goto error
+  popd
+)
 
-:: 4. Run grunt
-if [ -e "$DEPLOYMENT_SOURCE/Gruntfile.js" ]; then
-  eval $NPM_CMD install grunt-cli
-  exitWithMessageOnError "installing grunt failed"
-  ./node_modules/.bin/grunt --no-color clean common dist
-  exitWithMessageOnError "grunt failed"
-fi
+echo ************** call node --version
+call node --version
 
-:: 5. KuduSync to Target
-"$KUDU_SYNC_CMD" -v 500 -f "$DEPLOYMENT_SOURCE/dist" -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.hg;.deployment;deploy.sh"
-exitWithMessageOnError "Kudu Sync to Target failed"
+echo ************** call node --version
+call !NPM_CMD! install --production
+ 
+:: 4. Run our grunt task
+
+:: 4.1 We can't install grunt-cli globally - so intall it locally
+call !NPM_CMD! install grunt-cli
+
+:: 4.2 
+::
+:: NOTE: this won't work as it will not run with the package.json configure 
+:: 0.8.x version of node and will instead run with the 0.6.x version
+:: call node ./node_modules/grunt-cli/bin/grunt release
+:: 
+:: Let's manually call grunt with the correct version of node (using the "!NODE_EXE!" variable)
+call "!NODE_EXE!" ./node_modules/grunt-cli/bin/grunt release
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-:: Post deployment stub
-IF DEFINED POST_DEPLOYMENT_ACTION call "%POST_DEPLOYMENT_ACTION%"
-IF !ERRORLEVEL! NEQ 0 goto error
-
 goto end
 
-:: Execute command routine that will echo out when error
-:ExecuteCmd
-setlocal
-set _CMD_=%*
-call %_CMD_%
-if "%ERRORLEVEL%" NEQ "0" echo Failed exitCode=%ERRORLEVEL%, command=%_CMD_%
-exit /b %ERRORLEVEL%
-
 :error
-endlocal
 echo An error has occurred during web site deployment.
 call :exitSetErrorLevel
 call :exitFromFunction 2>nul
@@ -143,5 +133,4 @@ exit /b 1
 ()
 
 :end
-endlocal
 echo Finished successfully.
